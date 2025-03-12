@@ -10,9 +10,48 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Generate repository tree structure
+    - name: Generate AI-friendly repository structure
       run: |
+        # Create a comprehensive JSON structure of the repository
+        echo "Generating AI-friendly repository structure..."
+        
+        # Create JSON output
+        echo "{" > repo-structure.json
+        echo "  \"repository_structure\": {" >> repo-structure.json
+        echo "    \"files\": [" >> repo-structure.json
+        
+        # Find all files and convert to JSON entries
+        find . -type f -not -path "*/\.git/*" | sort | while read file; do
+          file_type=$(file -b --mime-type "$file")
+          file_size=$(stat -c%s "$file")
+          echo "      {" >> repo-structure.json
+          echo "        \"path\": \"$file\"," >> repo-structure.json
+          echo "        \"type\": \"$file_type\"," >> repo-structure.json
+          echo "        \"size\": $file_size" >> repo-structure.json
+          echo "      }," >> repo-structure.json
+        done
+        
+        # Fix JSON by removing trailing comma from last entry
+        sed -i '$ s/,$//' repo-structure.json
+        
+        # Close JSON structure
+        echo "    ]" >> repo-structure.json
+        echo "  }" >> repo-structure.json
+        echo "}" >> repo-structure.json
+        
+        # Also create a traditional tree view for human reading
         sudo apt-get install -y tree
         echo "Repository structure:" > repo-structure.txt
         tree -a -I '.git' >> repo-structure.txt
+        
+        # Display the structure
         cat repo-structure.txt
+        echo "JSON structure available at: repo-structure.json"
+        
+    - name: Upload repository structure
+      uses: actions/upload-artifact@v2
+      with:
+        name: repo-structure
+        path: |
+          repo-structure.json
+          repo-structure.txt
