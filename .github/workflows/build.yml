@@ -18,7 +18,7 @@ jobs:
         cat repo-structure.txt
     
     - name: Upload tree structure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: repo-structure
         path: repo-structure.txt
