@@ -1,0 +1,27 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Generate repository tree structure
+      run: |
+        sudo apt-get install -y tree
+        echo "Repository structure:" > repo-structure.txt
+        tree -a -I '.git' >> repo-structure.txt
+        cat repo-structure.txt
+    
+    - name: Upload tree structure
+      uses: actions/upload-artifact@v3
+      with:
+        name: repo-structure
+        path: repo-structure.txt
