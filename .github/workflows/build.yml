@@ -15,12 +15,15 @@ jobs:
         # Install tree command
         sudo apt-get install -y tree
         
+        # Check tree version
+        tree --version
+        
         # Create a traditional tree view for human reading
         echo "Repository structure:" > repo-structure.txt
         tree -a -I '.git' >> repo-structure.txt
         
-        # Generate JSON structure using tree command's built-in JSON output
-        tree -a -I '.git' --jsonout > repo-structure.json
+        # Generate JSON structure using tree's built-in JSON option (-J)
+        tree -a -I '.git' -J > repo-structure.json
         
         # Display the structure
         cat repo-structure.txt
