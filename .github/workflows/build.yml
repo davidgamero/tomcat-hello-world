@@ -36,3 +36,22 @@ jobs:
         path: |
           repo-structure.json
           repo-structure.txt
+          
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.20'
+          
+    - name: Send hello world to Azure OpenAI
+      env:
+        AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
+        AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+      run: |
+        # Run the Go script from the repository
+        go run .github/workflows/scripts/azure_openai_hello.go
+        
+    - name: Upload Azure OpenAI response
+      uses: actions/upload-artifact@v4
+      with:
+        name: azure-openai-response
+        path: azure_openai_response.txt
