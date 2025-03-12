@@ -16,9 +16,3 @@ jobs:
         echo "Repository structure:" > repo-structure.txt
         tree -a -I '.git' >> repo-structure.txt
         cat repo-structure.txt
-    
-    - name: Upload tree structure
-      uses: actions/upload-artifact@v2
-      with:
-        name: repo-structure
-        path: repo-structure.txt
