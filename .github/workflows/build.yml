@@ -12,37 +12,15 @@ jobs:
     
     - name: Generate AI-friendly repository structure
       run: |
-        # Create a comprehensive JSON structure of the repository
-        echo "Generating AI-friendly repository structure..."
-        
-        # Create JSON output
-        echo "{" > repo-structure.json
-        echo "  \"repository_structure\": {" >> repo-structure.json
-        echo "    \"files\": [" >> repo-structure.json
-        
-        # Find all files and convert to JSON entries
-        find . -type f -not -path "*/\.git/*" | sort | while read file; do
-          file_type=$(file -b --mime-type "$file")
-          file_size=$(stat -c%s "$file")
-          echo "      {" >> repo-structure.json
-          echo "        \"path\": \"$file\"," >> repo-structure.json
-          echo "        \"type\": \"$file_type\"," >> repo-structure.json
-          echo "        \"size\": $file_size" >> repo-structure.json
-          echo "      }," >> repo-structure.json
-        done
-        
-        # Fix JSON by removing trailing comma from last entry
-        sed -i '$ s/,$//' repo-structure.json
-        
-        # Close JSON structure
-        echo "    ]" >> repo-structure.json
-        echo "  }" >> repo-structure.json
-        echo "}" >> repo-structure.json
-        
-        # Also create a traditional tree view for human reading
+        # Install tree command
         sudo apt-get install -y tree
+        
+        # Create a traditional tree view for human reading
         echo "Repository structure:" > repo-structure.txt
         tree -a -I '.git' >> repo-structure.txt
+        
+        # Generate JSON structure using tree command's built-in JSON output
+        tree -a -I '.git' --jsonout > repo-structure.json
         
         # Display the structure
         cat repo-structure.txt
