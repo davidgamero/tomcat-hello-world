@@ -34,7 +34,7 @@ func main() {
 	resp, err := client.GetChatCompletions(
 		context.Background(),
 		azopenai.ChatCompletionsOptions{
-			DeploymentName: deploymentID,
+			DeploymentName: to.Ptr(deploymentID),
 			Messages: []azopenai.ChatRequestMessageClassification{
 				&azopenai.ChatRequestUserMessage{
 					Content: azopenai.NewChatRequestUserMessageContent("Hello Azure OpenAI! Tell me this is working in one short sentence."),
