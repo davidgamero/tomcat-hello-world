@@ -1,0 +1,43 @@
+[
+  {"type":"directory","name":".","contents":[
+    {"type":"directory","name":".github","contents":[
+      {"type":"directory","name":"workflows","contents":[
+        {"type":"file","name":"build.yml"}
+      ]}
+    ]},
+    {"type":"directory","name":".idea","contents":[
+      {"type":"file","name":".name"},
+      {"type":"directory","name":"artifacts","contents":[
+        {"type":"file","name":"tomcat_hello_world_war_exploded.xml"}
+      ]},
+      {"type":"file","name":"compiler.xml"},
+      {"type":"directory","name":"copyright","contents":[
+        {"type":"file","name":"profiles_settings.xml"}
+      ]},
+      {"type":"file","name":"encodings.xml"},
+      {"type":"file","name":"misc.xml"},
+      {"type":"file","name":"modules.xml"},
+      {"type":"directory","name":"scopes","contents":[
+        {"type":"file","name":"scope_settings.xml"}
+      ]},
+      {"type":"file","name":"vcs.xml"}
+    ]},
+    {"type":"file","name":"repo-structure.json"},
+    {"type":"file","name":"repo-structure.txt"},
+    {"type":"directory","name":"src","contents":[
+      {"type":"directory","name":"sample","contents":[
+        {"type":"file","name":"HelloWorld.java"}
+      ]}
+    ]},
+    {"type":"file","name":"tomcat-hello-world.iml"},
+    {"type":"directory","name":"web","contents":[
+      {"type":"directory","name":"WEB-INF","contents":[
+        {"type":"file","name":"web.xml"}
+      ]},
+      {"type":"file","name":"index.jsp"},
+      {"type":"file","name":"style.css"}
+    ]}
+  ]}
+,
+  {"type":"report","directories":11,"files":17}
+]
