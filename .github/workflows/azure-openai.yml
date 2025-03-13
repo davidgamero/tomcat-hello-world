@@ -13,14 +13,23 @@ jobs:
         with:
           go-version: '1.21'
       
-      - name: Install dependencies directly
+      - name: Setup Go modules and dependencies
         run: |
-          # Install required packages directly
-          go install github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai@v0.4.0
-          go install github.com/Azure/azure-sdk-for-go/sdk/azcore/to@v1.1.0
+          # Create a temporary directory for the script and initialize Go module
+          mkdir -p ./.github/workflows/scripts/temp
+          cd ./.github/workflows/scripts/temp
+          go mod init azure-openai-test
+          # Add required dependencies
+          go mod edit -require github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai@v0.4.0
+          go mod edit -require github.com/Azure/azure-sdk-for-go/sdk/azcore/to@v1.1.0
+          go mod tidy
+          # Copy the script to the temp directory
+          cp ../*.go ./
             
       - name: Run
-        run: go run ./.github/workflows/scripts/azure_openai_hello.go
+        run: |
+          cd ./.github/workflows/scripts/temp
+          go run azure_openai_hello.go
         env:
           AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
           AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
