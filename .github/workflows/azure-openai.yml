@@ -1,0 +1,29 @@
+name: Azure OpenAI Test
+
+on: [workflow_dispatch]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+      
+      - name: Install dependencies directly
+        run: |
+          # Install required packages directly
+          go get -u github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai@v0.4.0
+          go get -u github.com/Azure/azure-sdk-for-go/sdk/azcore/to@v1.1.0
+      
+      - name: Build
+        run: go build -v ./...
+      
+      - name: Run
+        run: go run ./.github/workflows/scripts/azure_openai_hello.go
+        env:
+          AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
+          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
