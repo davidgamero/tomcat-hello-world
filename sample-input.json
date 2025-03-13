@@ -1,0 +1,30 @@
+{
+  "dockerfile_content": "FROM ubuntu:20.04\nRUN apt update\nRUN apt install -y nginx\nEXPOSE 80\nCMD [\"nginx\", \"-g\", \"daemon off;\"]\n",
+  "error_messages": "The command '/bin/sh -c apt update' returned a non-zero code: 100\nE: Could not open lock file /var/lib/apt/lists/lock",
+  "repo_files": {
+    "files": [
+      {
+        "path": "index.html",
+        "type": "file",
+        "content": "<html><body><h1>Hello World</h1></body></html>"
+      },
+      {
+        "path": "nginx.conf",
+        "type": "file",
+        "content": "server { listen 80; root /var/www/html; index index.html; }"
+      },
+      {
+        "path": "src",
+        "type": "directory",
+        "children": [
+          {
+            "path": "src/app.js",
+            "type": "file",
+            "content": "console.log('Hello World');"
+          }
+        ]
+      }
+    ]
+  },
+  "dockerfile_path": "/Users/reiniercc/Documents/repos/tomcat-hello-world/Dockerfile"
+}

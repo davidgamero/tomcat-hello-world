@@ -13,22 +13,12 @@ jobs:
         with:
           go-version: '1.21'
       
-      - name: Setup Go modules and dependencies
-        run: |
-          # Create a temporary directory for the script and initialize Go module
-          mkdir -p ./.github/workflows/scripts/temp
-          cd ./.github/workflows/scripts/temp
-          go mod init azure-openai-test
-          
-          # Copy the script to the temp directory
-          cp ../*.go ./
-          
-          go get github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai
-          go get github.com/Azure/azure-sdk-for-go/sdk/azcore/to
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
             
-      - name: Run
+      - name: Run Azure OpenAI script
         run: |
-          cd ./.github/workflows/scripts/temp
+          cd ./.github/workflows/scripts
           go run azure_openai_hello.go
         env:
           AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
