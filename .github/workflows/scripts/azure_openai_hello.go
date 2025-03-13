@@ -28,7 +28,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	deploymentID := "gpt-4o"
+	deploymentID := "o3-mini"
 
 	// Create a completion
 	resp, err := client.GetChatCompletions(
