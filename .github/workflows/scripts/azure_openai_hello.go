@@ -30,7 +30,6 @@ func main() {
 
 	deploymentID := "o3-mini"
 
-	// Create a completion
 	resp, err := client.GetChatCompletions(
 		context.Background(),
 		azopenai.ChatCompletionsOptions{
@@ -40,7 +39,6 @@ func main() {
 					Content: azopenai.NewChatRequestUserMessageContent("Hello Azure OpenAI! Tell me this is working in one short sentence."),
 				},
 			},
-			max_completion_tokens: to.Ptr(int32(100)),
 		},
 		nil,
 	)
