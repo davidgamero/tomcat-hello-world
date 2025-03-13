@@ -44,8 +44,8 @@ func NewClient(apiKey, endpoint string) *AzureOpenAIClient {
 	return &AzureOpenAIClient{
 		APIKey:         apiKey,
 		Endpoint:       endpoint,
-		DeploymentName: "gpt-35-turbo", // Default value
-		APIVersion:     "2023-05-15",   // Default value
+		DeploymentName: "o3-mini",
+		APIVersion:     "2025-01-31",
 	}
 }
 
