@@ -19,7 +19,7 @@ jobs:
       - name: Run Azure OpenAI script
         run: |
           cd ./.github/workflows/scripts
-          go run azure_openai_hello.go
+          go run azure_openai_hello.go iterate-dockerfile-build
         env:
           AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
           AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
