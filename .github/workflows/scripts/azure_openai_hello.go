@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 )
 
@@ -19,24 +20,24 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Create a client
-	client, err := azopenai.NewClientWithKeyCredential(endpoint, apiKey, nil)
+	// Create a client with KeyCredential
+	keyCredential := azcore.NewKeyCredential(apiKey)
+	client, err := azopenai.NewClientWithKeyCredential(endpoint, keyCredential, nil)
 	if err != nil {
 		fmt.Printf("Error creating Azure OpenAI client: %v\n", err)
 		os.Exit(1)
 	}
 
-	// Define deployment name - replace with your actual deployment name
 	deploymentID := "gpt-35-turbo"
 
 	// Create a completion
 	resp, err := client.GetChatCompletions(
 		context.Background(),
 		azopenai.ChatCompletionsOptions{
-			DeploymentID: deploymentID,
-			Messages: []azopenai.ChatMessage{
+			Deployment: deploymentID,
+			Messages: []azopenai.ChatRequestMessage{
 				{
-					Role:    to.Ptr(azopenai.ChatRoleUser),
+					Role:    azopenai.ChatRoleUser,
 					Content: to.Ptr("Hello Azure OpenAI! Tell me this is working in one short sentence."),
 				},
 			},
