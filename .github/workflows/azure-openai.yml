@@ -16,12 +16,9 @@ jobs:
       - name: Install dependencies directly
         run: |
           # Install required packages directly
-          go get -u github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai@v0.4.0
-          go get -u github.com/Azure/azure-sdk-for-go/sdk/azcore/to@v1.1.0
-      
-      - name: Build
-        run: go build -v ./...
-      
+          go install github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai@v0.4.0
+          go install github.com/Azure/azure-sdk-for-go/sdk/azcore/to@v1.1.0
+            
       - name: Run
         run: go run ./.github/workflows/scripts/azure_openai_hello.go
         env:
