@@ -19,12 +19,12 @@ jobs:
           mkdir -p ./.github/workflows/scripts/temp
           cd ./.github/workflows/scripts/temp
           go mod init azure-openai-test
-          # Add required dependencies
-          go mod edit -require github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai@v0.4.0
-          go mod edit -require github.com/Azure/azure-sdk-for-go/sdk/azcore/to@v1.1.0
-          go mod tidy
+          
           # Copy the script to the temp directory
           cp ../*.go ./
+          
+          go get github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai
+          go get github.com/Azure/azure-sdk-for-go/sdk/azcore/to
             
       - name: Run
         run: |
