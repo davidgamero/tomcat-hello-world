@@ -40,7 +40,7 @@ func main() {
 					Content: azopenai.NewChatRequestUserMessageContent("Hello Azure OpenAI! Tell me this is working in one short sentence."),
 				},
 			},
-			MaxTokens: to.Ptr(int32(100)),
+			max_completion_tokens: to.Ptr(int32(100)),
 		},
 		nil,
 	)
