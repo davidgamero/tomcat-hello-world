@@ -28,17 +28,16 @@ func main() {
 		os.Exit(1)
 	}
 
-	deploymentID := "gpt-35-turbo"
+	deploymentID := "gpt-4o"
 
 	// Create a completion
 	resp, err := client.GetChatCompletions(
 		context.Background(),
 		azopenai.ChatCompletionsOptions{
-			Deployment: deploymentID,
-			Messages: []azopenai.ChatRequestMessage{
-				{
-					Role:    azopenai.ChatRoleUser,
-					Content: to.Ptr("Hello Azure OpenAI! Tell me this is working in one short sentence."),
+			DeploymentName: deploymentID,
+			Messages: []azopenai.ChatRequestMessageClassification{
+				&azopenai.ChatRequestUserMessage{
+					Content: azopenai.NewChatRequestUserMessageContent("Hello Azure OpenAI! Tell me this is working in one short sentence."),
 				},
 			},
 			MaxTokens: to.Ptr(int32(100)),
