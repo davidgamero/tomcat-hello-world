@@ -135,6 +135,7 @@ func main() {
 	// Get configuration from environment variables
 	apiKey := os.Getenv("AZURE_OPENAI_KEY")
 	endpoint := os.Getenv("AZURE_OPENAI_ENDPOINT")
+	fmt.Println("Azure OpenAI Endpoint:", endpoint)
 
 	if apiKey == "" || endpoint == "" {
 		fmt.Println("Error: AZURE_OPENAI_KEY or AZURE_OPENAI_ENDPOINT environment variables not set")
