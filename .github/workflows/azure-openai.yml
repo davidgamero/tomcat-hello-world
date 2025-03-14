@@ -16,6 +16,7 @@ jobs:
         with:
           repository: davidgamero/draft
           branch: davidgamero/interactive-flag 
+          path: draft
       - name: Build Draft
         run: |
           cd draft
