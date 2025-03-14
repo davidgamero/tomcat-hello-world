@@ -7,9 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Checkout Draft
+        uses: actions/checkout@v3
+        with:
+          repository: davidgamero/draft
+          branch: davidgamero/interactive-flag 
+      - name: Build Draft
+        run: |
+          cd draft
+          go build -o draft
+          chmod +x draft
       - name: Generate with Draft
         run: |
-          .github/workflows/bin/draft create -vv --interactive=false --skip-file-detection
+          draft/draft create -vv --interactive=false --skip-file-detection
       
       - name: Set up Go
         uses: actions/setup-go@v4
