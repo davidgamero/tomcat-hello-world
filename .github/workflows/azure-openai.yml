@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Generate with Draft
+        run: |
+          .github/workflows/bin/draft create -vv --interactive=false --skip-file-detection
       
       - name: Set up Go
         uses: actions/setup-go@v4
@@ -23,3 +26,9 @@ jobs:
         env:
           AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
           AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7 //you must explicitly allow GitHub Actions to create pull requests under repository settings Actions > General > Workflow permissions.
+        with: 
+          branch: container-copilot/update
+          delete-branch: true
+
