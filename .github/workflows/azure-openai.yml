@@ -21,12 +21,13 @@ jobs:
       - name: Build Draft
         run: |
           cd draft
-          go build -o draft
-          chmod +x draft
+          go build -o ../.github/workflows/bin/draft
+          chmod +x ../.github/workflows/bin/draft
+          cd ..
+          rm -rf draft
       - name: Generate with Draft
         run: |
-          draft/draft create -vv --interactive=false --skip-file-detection
-      
+          .github/workflows/bin/draft create -vv --interactive=false --skip-file-detection
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
