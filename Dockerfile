@@ -1,12 +1,21 @@
-FROM maven:3 as BUILD
-
-COPY . /usr/src/app
-RUN mvn --batch-mode -f /usr/src/app/pom.xml clean package
-
-FROM eclipse-temurin:21-jre
-ENV PORT 80
+FROM golang:1.23
+ENV PORT=80
 EXPOSE 80
-COPY --from=BUILD /usr/src/app/target /opt/target
-WORKDIR /opt/target
 
-CMD ["/bin/bash", "-c", "find -type f -name '*-SNAPSHOT.jar' | xargs java -jar"]
+# Set a dedicated working directory for the project. (You can choose a different location.)
+WORKDIR /app
+
+# Copy go.mod and go.sum early to leverage Docker layer caching.
+COPY go.mod go.sum ./
+
+# Download modules as needed.
+RUN go mod download
+
+# Copy all source files.
+COPY . .
+
+# Build the application.
+RUN go build -v -o app .
+
+# Run the binary
+CMD ["./app"]
