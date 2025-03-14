@@ -1,6 +1,10 @@
 name: Azure OpenAI Test
 
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - david
 
 jobs:
   test:
