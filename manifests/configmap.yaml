@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tomcat-hello-world-workflow-config
+  namespace: default
+  labels:
+    app.kubernetes.io/name: tomcat-hello-world-workflow
+    kubernetes.azure.com/generator: draft
+data:
